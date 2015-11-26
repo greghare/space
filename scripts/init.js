@@ -7,8 +7,6 @@ var keyboard = new THREEx.KeyboardState();
 
 var clock = new THREE.Clock();
 
-var planets = [];
-
 var sun, mercury, venus, earth, moon, mars,
 	jupiter, saturn, uranus, neptune, pluto;
 
@@ -85,9 +83,7 @@ function init() {
 	venus = new Planet(THREEx.Planets.createVenus(), 3760, 10087000000, 0.722, 0, 0);
 	earth = new Planet(THREEx.Planets.createEarth(), 3959, 86400000, 1, 0x2B95FF, 0);
 	moon = new Planet(THREEx.Planets.createMoon(), 1079, 2592000000, 1 + 0.00256, 0, 0);
-	mars = new Planet(THREEx.Planets.createMars(), 2106, 88740000, 1 + 0.00256, 0, 0);
-
-	planets = [sun, mercury, venus, earth, moon];
+	mars = new Planet(THREEx.Planets.createMars(), 2106, 88740000, 1.52, 0, 0);
 
 	render();
 }
@@ -125,7 +121,10 @@ function slowNearPlanets() {
 	dMoonVec.subVectors( camera.position, moon.getMesh().position );
 	dMoon = dMoonVec.length();
 
-	var minDist = Math.min(dSun, dMercury, dVenus, dEarth, dMoon);
+	dMarsVec.subVectors( camera.position, mars.getMesh().position );
+	dMars = dMarsVec.length();
+
+	var minDist = Math.min(dSun, dMercury, dVenus, dEarth, dMoon, dMars);
 
 	// console.log(moon.getMesh().position);
 
@@ -150,6 +149,11 @@ function slowNearPlanets() {
 		// console.log("dMercury < dPlanet");
 		d = ( dMercury - mercury.getScale() * 1.01 );
 	}
+	else if( dVenus == minDist && dVenus <= dPlanet )
+	{
+		// console.log("dVenus < dPlanet");
+		d = ( dVenus - venus.getScale() * 1.01 );
+	}
 	else if( dEarth == minDist && dEarth <= dPlanet )
 	{
 		// console.log("dEarth < dPlanet");
@@ -160,10 +164,9 @@ function slowNearPlanets() {
 		// console.log("dMoon < dPlanet");
 		d = ( dMoon - moon.getScale() * 1.01 );
 	}
-	else if( dVenus == minDist && dVenus <= dPlanet )
+	else if( dMars == minDist && dMars <= dPlanet )
 	{
-		// console.log("dVenus < dPlanet");
-		d = ( dVenus - venus.getScale() * 1.01 );
+		d = ( dMars - mars.getScale() * 1.01 );
 	}
 	// else
 	// {
