@@ -1,6 +1,6 @@
 var sFactor = 0.0001;   // speed factor    (lower = faster rotation)
 var rFactor = 0.0001; 	// radius factor   (lower = smaller size)
-var dFactor = 0.000001; // distance factor (lower = less distance)
+var dFactor = 0.000002; // distance factor (lower = less distance)
 var au = 92955807;	   	// distance from earth to sun in miles (used for scale)
 
 // Adds a starfield earth to the scene
@@ -15,7 +15,8 @@ function addStarfield() {
 // Planet will rotate at speed in milliseconds
 // Planet will be placed at x = distance, y = 0, z = 0
 // Planet will have an atmosphere with atmColor (if 0, there will be no atmosphere)
-function Planet(mesh, radius, speed, distance, atmColor) {
+// Planet will have a fading glowColor around it (if 0, there will be no glow)
+function Planet(mesh, radius, speed, distance, atmColor, glowColor) {
 
 	this.mesh = mesh;
 	this.radius = radius;
@@ -31,14 +32,26 @@ function Planet(mesh, radius, speed, distance, atmColor) {
 
 	if(atmColor !== 0)
 	{
-		var glowColor = new THREE.Color(atmColor);
+		var atmGlowColor = new THREE.Color(atmColor);
 		var atmG = mesh.geometry.clone();
 		var atmM = THREEx.createAtmosphereMaterial();
-		atmM.uniforms.glowColor.value = glowColor;
+		atmM.uniforms.glowColor.value = atmGlowColor;
 		var atm = new THREE.Mesh(atmG, atmM );
 		atm.scale.multiplyScalar(this.scale * 1.04);
 		atm.position.set(distance * au * dFactor, 0, 0);
 		scene.add( atm );
+	}
+
+	if(glowColor !== 0)
+	{
+		var spriteMaterial = new THREE.SpriteMaterial(
+		{
+			map: new THREE.ImageUtils.loadTexture( 'images/glow.png' ),
+			color: glowColor, transparent: false, blending: THREE.AdditiveBlending
+		});
+		var sprite = new THREE.Sprite( spriteMaterial );
+		sprite.scale.set(2, 2, 1.0);
+		mesh.add(sprite); // this centers the glow at the mesh
 	}
 
 	this.getScale = function() { return this.scale; };
