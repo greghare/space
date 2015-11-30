@@ -1,0 +1,30 @@
+.hud_gps {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    border: 2px solid white;
+    padding: 20px;
+    transform: translate(0px, 0px) rotate(0deg) skew(0deg, -4deg) scale(1, 1);
+    width: 150px;
+}
+
+.hud_distance {
+    width: 150px;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+}
+
+.hud_level {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border: 2px solid white;
+    padding: 20px;
+    transform: translate(0px, 0px) rotate(0deg) skew(0deg, 4deg) scale(1, 1);
+    width: 150px;
+}
+
+.hud_gps h3, .hud_level h3 {
+    margin: 0;
+}

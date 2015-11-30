@@ -25,11 +25,19 @@ function Planet(mesh, radius, speed, distance, atmColor, glowColor) {
 
 	scene.add(this.mesh);
 	this.mesh.scale.set(this.scale, this.scale, this.scale);
-	console.log(distance*au*dFactor);
     this.mesh.position.set(distance * au * dFactor, 0, 0);
 
 	rotatePlanet(this.mesh, this.speed);
 
+	if(mesh != THREEx.Planets.createMoon())
+	{
+		var rotPathG = new THREE.CylinderGeometry( distance * au * dFactor, distance * au * dFactor, 0.1, 256, 1, true, 0, 6.2 );
+		var rotPathM = new THREE.MeshPhongMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+		var rotPath = new THREE.Mesh( rotPathG, rotPathM );
+		rotPath.rotation.set(0, Math.PI / 2 + 0.04, 0);
+		scene.add( rotPath );
+	}
+	
 	if(atmColor !== 0)
 	{
 		var atmGlowColor = new THREE.Color(atmColor);
@@ -57,6 +65,36 @@ function Planet(mesh, radius, speed, distance, atmColor, glowColor) {
 	this.getScale = function() { return this.scale; };
 	this.getRadius = function() { return this.radius; };
 	this.getMesh = function() { return this.mesh; };
+}
+
+function addClouds(radius, speed, distance) {
+	var cloud = THREEx.Planets.createEarthCloud();
+	var scale = radius * rFactor;
+	cloud.scale.set(scale, scale, scale);
+	cloud.position.set(distance * au * dFactor, 0, 0);
+	scene.add(cloud);
+	speed = speed * sFactor * 1.3;
+	rotatePlanet(cloud, speed);
+}
+
+function addSaturnRing(radius, distance) {
+	var ring = THREEx.Planets.createSaturnRing();
+	ring.receiveShadow = true;
+	ring.castShadow = true;
+	var scale = radius * rFactor;
+	ring.scale.set(scale, scale, scale);
+	ring.position.set(distance * au * dFactor, 0, 0);
+	scene.add(ring);
+}
+
+function addUranusRing(radius, distance) {
+	var ring = THREEx.Planets.createUranusRing();
+	ring.receiveShadow = true;
+	ring.castShadow = true;
+	var scale = radius * rFactor;
+	ring.scale.set(scale, scale, scale);
+	ring.position.set(distance * au * dFactor, 0, 0);
+	scene.add(ring);
 }
 
 // Rotate a given planet at the specified speed (in milliseconds)

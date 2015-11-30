@@ -48,6 +48,7 @@ THREE.FlyControls = function ( object, domElement ) {
 		}
 
 		//event.preventDefault();
+		// ship.startEngine();
 
 		switch ( event.keyCode ) {
 
@@ -68,8 +69,8 @@ THREE.FlyControls = function ( object, domElement ) {
 			case 37: /*left*/ this.moveState.yawLeft = 1; break;
 			case 39: /*right*/ this.moveState.yawRight = 1; break;
 
-			case 81: /*Q*/ this.moveState.rollLeft = 1; break;
-			case 69: /*E*/ this.moveState.rollRight = 1; break;
+			case 81: /*Q*/ this.moveState.rollLeft = 1; updateHud(); break;
+			case 69: /*E*/ this.moveState.rollRight = 1; updateHud(); break;
 
 		}
 
@@ -79,6 +80,8 @@ THREE.FlyControls = function ( object, domElement ) {
 	};
 
 	this.keyup = function( event ) {
+
+		// ship.stopEngine();
 
 		switch ( event.keyCode ) {
 
