@@ -11,7 +11,7 @@ var clock = new THREE.Clock();
 
 var ship = new Ship();
 var fuel = 100;
-var speed = 1;
+var shipEnabled = true;
 
 var originalX, originalZ;
 
@@ -109,6 +109,11 @@ function init() {
 	loadSounds();
 	bindKeys();
 
+	document.getElementById("a").addEventListener("click", function() { submitAnswer(); }, false);
+	document.getElementById("b").addEventListener("click", function() { submitAnswer(); }, false);
+	document.getElementById("c").addEventListener("click", function() { submitAnswer(); }, false);
+	document.getElementById("d").addEventListener("click", function() { submitAnswer(); }, false);
+
 	render();
 }
 
@@ -166,9 +171,19 @@ function moonOrbit() {
 
 }
 
+function submitAnswer() {
+	var answer = true;
+	if(answer) {
+		controls.movementSpeed = 0.33 * d;
+		console.log("Correct! you can move again 	" + (controls.movementSpeed = 0.33 * d));
+	} else {
+		console.log("wrong answer");
+	}
+}
+
 function updateFuel() {
 	fuel -= 0.01;
-	console.log("Updating fuel to " + fuel);
+	// console.log("Updating fuel to " + fuel);
 	document.getElementsByClassName("fuel")[0].style.height = fuel + "%";
 }
 
