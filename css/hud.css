@@ -2,24 +2,29 @@
     position: absolute;
     bottom: 20px;
     left: 20px;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     padding: 20px;
     transform: translate(0px, 0px) rotate(0deg) skew(0deg, -4deg) scale(1, 1);
     width: 150px;
 }
 
 .hud_distance {
+    position: absolute;
+    bottom: 80px;
+    width: 100%;
+    zoom: 0.8;
+}
+
+.hud_distance .center {
     width: 150px;
     margin: 0 auto;
-    position: absolute;
-    bottom: 0;
 }
 
 .hud_level {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     padding: 20px;
     transform: translate(0px, 0px) rotate(0deg) skew(0deg, 4deg) scale(1, 1);
     width: 150px;
@@ -27,4 +32,26 @@
 
 .hud_gps h3, .hud_level h3 {
     margin: 0;
+}
+
+.fuel-guage {
+    transform: translate(0px, 0px) rotate(0deg) skew(0deg, -4deg) scale(1, 1);
+    position: absolute;
+    top: 30px;
+    left: 70px;
+}
+
+.fuel-bar {
+  height: 200px;
+  width: 50px;
+  border: 2px solid #FFEA00;
+  position: relative;
+}
+
+.fuel {
+  height: 0%;
+  width: 100%;
+  background-color: #FFEA00;
+  position: absolute;
+  bottom: 0;
 }

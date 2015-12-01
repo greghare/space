@@ -16,11 +16,20 @@
 	<script type="text/javascript" src="libs/threex.text.js"></script>
 	<script type="text/javascript" src="libs/Tween.js"></script>
 	<script type="text/javascript" src="scripts/ship.js"></script>
+	<script type="text/javascript" src="scripts/hud.js"></script>
 	<script type="text/javascript" src="scripts/planets.js"></script>
 	<script type="text/javascript" src="scripts/init.js"></script>
 </head>
 
 <body>
+	<div class="fuel-guage">
+		<h3>Fuel</h3>
+		<div class="fuel-bar">
+	  		<div class="fuel">
+	  		</div>
+		</div>
+	</div>
+
 	<div class="hud_gps">
 		<h3>GPS</h3>
 		<span id="xPos">0</span>, <span id="zPos">0</span>
@@ -28,12 +37,24 @@
 		<span id="yPos">0</span>
 	</div>
 	<div class="hud_distance">
-		<h3>Distance</h3>
-		<span id="distance">0</span>
+		<div class="center">
+			<h3>Nearest Planet</h3>
+			<span id="distance">0</span>
+		</div>
 	</div>
 	<div class="hud_level">
 		<h3>Level</h3>
 		<span id="level">0</span>
+	</div>
+
+	<div class="trivia">
+		<h2>1/5</h2>
+		<p>How far is the Earth from the Sun?</p>
+		<ul>
+			<li id="a">A: 96.92 million miles</li>
+			<li id="b">B: 92.96 million miles</li>
+			<li id="c">C: 82.55 million miles</li>
+			<li id="d">D: 76.21 million miles</li>
 	</div>
 </body>
 

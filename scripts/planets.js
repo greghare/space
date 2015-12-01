@@ -29,7 +29,8 @@ function Planet(mesh, radius, speed, distance, atmColor, glowColor) {
 
 	rotatePlanet(this.mesh, this.speed);
 
-	if(mesh != THREEx.Planets.createMoon())
+	// If not the moon
+	if(mesh.material.map.sourceFile != "images/planets/moonmap1k.jpg")
 	{
 		var rotPathG = new THREE.CylinderGeometry( distance * au * dFactor, distance * au * dFactor, 0.1, 256, 1, true, 0, 6.2 );
 		var rotPathM = new THREE.MeshPhongMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
@@ -37,7 +38,8 @@ function Planet(mesh, radius, speed, distance, atmColor, glowColor) {
 		rotPath.rotation.set(0, Math.PI / 2 + 0.04, 0);
 		scene.add( rotPath );
 	}
-	
+
+	// If an atomosphere color was set
 	if(atmColor !== 0)
 	{
 		var atmGlowColor = new THREE.Color(atmColor);
@@ -50,6 +52,7 @@ function Planet(mesh, radius, speed, distance, atmColor, glowColor) {
 		scene.add( atm );
 	}
 
+	// If a glow color was set
 	if(glowColor !== 0)
 	{
 		var spriteMaterial = new THREE.SpriteMaterial(
@@ -95,6 +98,114 @@ function addUranusRing(radius, distance) {
 	ring.scale.set(scale, scale, scale);
 	ring.position.set(distance * au * dFactor, 0, 0);
 	scene.add(ring);
+}
+
+function slowNearPlanets() {
+
+	var delta = clock.getDelta();
+
+	dPlanet = camera.position.length();
+
+	dSunVec.subVectors( camera.position, sun.getMesh().position );
+	dSun = dSunVec.length();
+
+	dMercuryVec.subVectors( camera.position, mercury.getMesh().position );
+	dMercury = dMercuryVec.length();
+
+	dVenusVec.subVectors( camera.position, venus.getMesh().position );
+	dVenus = dVenusVec.length();
+
+	dEarthVec.subVectors( camera.position, earth.getMesh().position );
+	dEarth = dEarthVec.length();
+
+	dMoonVec.subVectors( camera.position, moon.getMesh().position );
+	dMoon = dMoonVec.length();
+
+	dMarsVec.subVectors( camera.position, mars.getMesh().position );
+	dMars = dMarsVec.length();
+
+	dJupiterVec.subVectors( camera.position, jupiter.getMesh().position );
+	dJupiter = dJupiterVec.length();
+
+	dSaturnVec.subVectors( camera.position, saturn.getMesh().position );
+	dSaturn = dSaturnVec.length();
+
+	dUranusVec.subVectors( camera.position, uranus.getMesh().position );
+	dUranus = dUranusVec.length();
+
+	dNeptuneVec.subVectors( camera.position, neptune.getMesh().position );
+	dNeptune = dNeptuneVec.length();
+
+	dPlutoVec.subVectors( camera.position, pluto.getMesh().position );
+	dPluto = dPlutoVec.length();
+
+	var minDist = Math.min(dSun, dMercury, dVenus, dEarth, dMoon, dMars, dJupiter, dSaturn, dUranus, dNeptune, dPluto);
+
+	if( dSun == minDist && dSun <= dPlanet )
+	{
+		// console.log("dSun < dPlanet");
+		d = ( dSun - sun.getScale() * 1.01 );
+		speed = (d / sun.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dMercury == minDist && dMercury <= dPlanet )
+	{
+		// console.log("dMercury < dPlanet");
+		d = ( dMercury - mercury.getScale() * 1.01 );
+		speed = (d / mercury.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dVenus == minDist && dVenus <= dPlanet )
+	{
+		// console.log("dVenus < dPlanet");
+		d = ( dVenus - venus.getScale() * 1.01 );
+		speed = (d / venus.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dEarth == minDist && dEarth <= dPlanet )
+	{
+		// console.log("dEarth < dPlanet");
+		d = ( dEarth - earth.getScale() * 1.01 );
+		speed = (d / earth.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dMoon == minDist && dMoon <= dPlanet )
+	{
+		// console.log("dMoon < dPlanet");
+		d = ( dMoon - moon.getScale() * 1.01 );
+		speed = (d / moon.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dMars == minDist && dMars <= dPlanet )
+	{
+		d = ( dMars - mars.getScale() * 1.01 );
+		speed = (d / mars.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dJupiter == minDist && dJupiter <= dPlanet )
+	{
+		d = ( dJupiter - jupiter.getScale() * 1.01 );
+		speed = (d / jupiter.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dSaturn == minDist && dSaturn <= dPlanet )
+	{
+		d = ( dSaturn - saturn.getScale() * 1.01 );
+		speed = (d / saturn.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dUranus == minDist && dUranus <= dPlanet )
+	{
+		d = ( dUranus - uranus.getScale() * 1.01 );
+		speed = (d / uranus.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dNeptune == minDist && dUranus <= dPlanet )
+	{
+		d = ( dNeptune - neptune.getScale() * 1.01 );
+		speed = (d / neptune.getRadius() <= 0.00004) ? 0 : 1;
+	}
+	else if( dPluto == minDist && dPluto <= dPlanet )
+	{
+		d = ( dPluto - pluto.getScale() * 1.01 );
+		speed = (d / pluto.getRadius() <= 0.00004) ? 0 : 1;
+	}
+
+	// console.log(d);
+
+	controls.movementSpeed = 0.33 * d * speed;
+	controls.update( delta );
 }
 
 // Rotate a given planet at the specified speed (in milliseconds)

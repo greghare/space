@@ -10,6 +10,10 @@ var au = 92955807;	   	// distance from earth to sun in miles (used for scale)
 var clock = new THREE.Clock();
 
 var ship = new Ship();
+var fuel = 100;
+var speed = 1;
+
+var originalX, originalZ;
 
 var sun, mercury, venus, earth, moon, mars,
 	jupiter, saturn, uranus, neptune, pluto;
@@ -63,7 +67,7 @@ function init() {
 	scene.add(ambLight);
 
 	var light = new THREE.DirectionalLight(0xcccccc, 1);
-	light.position.set(5, 0, 0);
+	light.position.set(-5, 0, 0);
 	scene.add(light);
 	light.castShadow = true;
 	light.shadowCameraNear = 0.01;
@@ -88,6 +92,8 @@ function init() {
 	earth = new Planet(THREEx.Planets.createEarth(), 3959, 86400000, 1, 0x2B95FF, 0);
 		addClouds(3959, 86400000, 1);
 	moon = new Planet(THREEx.Planets.createMoon(), 1079, 2592000000, 1 + 0.00256, 0, 0);
+	originalX = moon.getMesh().position.x;
+	originalZ = moon.getMesh().position.z;
 	mars = new Planet(THREEx.Planets.createMars(), 2106, 88740000, 1.52, 0, 0);
 	jupiter = new Planet(THREEx.Planets.createJupiter(), 43441, 35700000, 5.203, 0, 0);
 	saturn = new Planet(THREEx.Planets.createSaturn(), 36184, 37920000, 9.572, 0, 0);
@@ -113,6 +119,8 @@ function bindKeys() {
 			ship.startEngine();
 		else if(ship.engineOn === true)
 			ship.stopEngine();
+
+		speed = 1;
 	});
 }
 
@@ -125,117 +133,11 @@ function onWindowResize() {
 
 }
 
-function updateHud() {
-	document.getElementById("xPos").innerHTML = Math.floor(camera.position.x);
-	document.getElementById("zPos").innerHTML = Math.floor(camera.position.z);
-	document.getElementById("yPos").innerHTML = Math.floor(camera.position.y);
-	document.getElementById("level").innerHTML = Math.floor(camera.rotation.z);
-	document.getElementById("distance").innerHTML = Math.floor(d);
-}
-
-function slowNearPlanets() {
-
-	var delta = clock.getDelta();
-
-	dPlanet = camera.position.length();
-
-
-	var dist = [];
-
-	dSunVec.subVectors( camera.position, sun.getMesh().position );
-	dSun = dSunVec.length();
-
-	dMercuryVec.subVectors( camera.position, mercury.getMesh().position );
-	dMercury = dMercuryVec.length();
-
-	dVenusVec.subVectors( camera.position, venus.getMesh().position );
-	dVenus = dVenusVec.length();
-
-	dEarthVec.subVectors( camera.position, earth.getMesh().position );
-	dEarth = dEarthVec.length();
-
-	dMoonVec.subVectors( camera.position, moon.getMesh().position );
-	dMoon = dMoonVec.length();
-
-	dMarsVec.subVectors( camera.position, mars.getMesh().position );
-	dMars = dMarsVec.length();
-
-	dJupiterVec.subVectors( camera.position, jupiter.getMesh().position );
-	dJupiter = dJupiterVec.length();
-
-	dSaturnVec.subVectors( camera.position, saturn.getMesh().position );
-	dSaturn = dSaturnVec.length();
-
-	dUranusVec.subVectors( camera.position, uranus.getMesh().position );
-	dUranus = dUranusVec.length();
-
-	dNeptuneVec.subVectors( camera.position, neptune.getMesh().position );
-	dNeptune = dNeptuneVec.length();
-
-	dPlutoVec.subVectors( camera.position, pluto.getMesh().position );
-	dPluto = dPlutoVec.length();
-
-	var minDist = Math.min(dSun, dMercury, dVenus, dEarth, dMoon, dMars, dJupiter, dSaturn, dUranus, dNeptune, dPluto);
-
-	if( dSun == minDist && dSun <= dPlanet )
-	{
-		// console.log("dSun < dPlanet");
-		d = ( dSun - sun.getScale() * 1.01 );
-	}
-	else if( dMercury == minDist && dMercury <= dPlanet )
-	{
-		// console.log("dMercury < dPlanet");
-		d = ( dMercury - mercury.getScale() * 1.01 );
-	}
-	else if( dVenus == minDist && dVenus <= dPlanet )
-	{
-		// console.log("dVenus < dPlanet");
-		d = ( dVenus - venus.getScale() * 1.01 );
-	}
-	else if( dEarth == minDist && dEarth <= dPlanet )
-	{
-		// console.log("dEarth < dPlanet");
-		d = ( dEarth - earth.getScale() * 1.01 );
-	}
-	else if( dMoon == minDist && dMoon <= dPlanet )
-	{
-		// console.log("dMoon < dPlanet");
-		d = ( dMoon - moon.getScale() * 1.01 );
-	}
-	else if( dMars == minDist && dMars <= dPlanet )
-	{
-		d = ( dMars - mars.getScale() * 1.01 );
-	}
-	else if( dJupiter == minDist && dJupiter <= dPlanet )
-	{
-		d = ( dJupiter - jupiter.getScale() * 1.01 );
-	}
-	else if( dSaturn == minDist && dSaturn <= dPlanet )
-	{
-		d = ( dSaturn - saturn.getScale() * 1.01 );
-	}
-	else if( dUranus == minDist && dUranus <= dPlanet )
-	{
-		d = ( dUranus - uranus.getScale() * 1.01 );
-	}
-	else if( dNeptune == minDist && dUranus <= dPlanet )
-	{
-		d = ( dNeptune - neptune.getScale() * 1.01 );
-	}
-	else if( dPluto == minDist && dPluto <= dPlanet )
-	{
-		d = ( dPluto - pluto.getScale() * 1.01 );
-	}
-
-	controls.movementSpeed = 0.33 * d;
-	controls.update( delta );
-}
-
 function orbitAroundSun(mesh, distance) {
 
 	var radius = distance*au*dFactor;
 	var dd = 0.2;
-	var newX, newY;
+	var newX, newZ;
 	var angle = 0;
 
 	angle += Math.acos(1-Math.pow(dd/radius,2)/2);
@@ -248,13 +150,34 @@ function orbitAroundSun(mesh, distance) {
 	mesh.position.z = newZ;
 }
 
-function animate() {
+var radius = 0.00256 * au * dFactor;
+var dd = 0.002;
+var newX, newZ;
+var angle = 0;
 
-	// sun.getMesh().position.x += Math.sin(90)*0.01;
-    // sun.getMesh().position.y = 0;
+function moonOrbit() {
+
+	angle += Math.acos(1 - Math.pow(dd/radius, 2) / 2);
+	newX = originalX + radius * Math.cos(angle) - 0.00256 - 0.5;
+	newZ = originalZ + radius * Math.sin(angle);
+
+	moon.getMesh().position.x = newX;
+	moon.getMesh().position.z = newZ;
+
+}
+
+function updateFuel() {
+	fuel -= 0.01;
+	console.log("Updating fuel to " + fuel);
+	document.getElementsByClassName("fuel")[0].style.height = fuel + "%";
+}
+
+function animate() {
 
 	updateHud();
 	slowNearPlanets();
+	moonOrbit();
+	updateFuel();
 
 	TWEEN.update();
 }
