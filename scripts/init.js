@@ -4,8 +4,10 @@ var renderer;
 var controls;
 var updateFcts = [];
 
-var dFactor = 0.000002; // distance factor (lower = less distance)
-var au = 92955807;	   	// distance from earth to sun in miles (used for scale)
+var qdb;
+
+// var dFactor = 0.000002; // distance factor (lower = less distance)
+// var au = 92955807;	   	// distance from earth to sun in miles (used for scale)
 
 var clock = new THREE.Clock();
 
@@ -38,11 +40,11 @@ function init() {
 	scene = new THREE.Scene();
 
 	// Create the camera
-	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.001, 20000);
-	camera.position.set(0 * au * dFactor, 0, 150);
-	// camera.rotation.set(10, 0, 0);
- 	// camera.up.set( 0, 0, 1 );
-	//camera.lookAt(new THREE.Vector3(0, 0, 0));
+	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.001, 15000);
+	camera.position.set(39.51 * au * dFactor, 0, 0);
+//	camera.rotation.set(10, 0, 0);
+// 	camera.up.set( 0, 0, 1 );
+	camera.lookAt(new THREE.Vector3(0, 0, 0));
 	controls = new THREE.FlyControls( camera );
 	controls.movementSpeed = 1000;
 	controls.rollSpeed = Math.PI / 24;
@@ -105,14 +107,19 @@ function init() {
 	neptune = new Planet(THREEx.Planets.createNeptune(), 15299, 57996000, 30.066, 0, 0);
 	pluto = new Planet(THREEx.Planets.createPluto(), 736, 551820000, 39.5, 0, 0);
 
-
 	loadSounds();
+
+	var questions = loadQuestions("/questions.json", function() {
+		console.log(this);
+		qdb = this;
+	});
+	console.log("Running before the callback");
 	bindKeys();
 
-	document.getElementById("a").addEventListener("click", function() { submitAnswer(); }, false);
-	document.getElementById("b").addEventListener("click", function() { submitAnswer(); }, false);
-	document.getElementById("c").addEventListener("click", function() { submitAnswer(); }, false);
-	document.getElementById("d").addEventListener("click", function() { submitAnswer(); }, false);
+	document.getElementById("ans-a").addEventListener("click", function() { submitAnswer("a"); }, false);
+	document.getElementById("ans-b").addEventListener("click", function() { submitAnswer("b"); }, false);
+	document.getElementById("ans-c").addEventListener("click", function() { submitAnswer("c"); }, false);
+	document.getElementById("ans-d").addEventListener("click", function() { submitAnswer("d"); }, false);
 
 	render();
 }
@@ -171,26 +178,20 @@ function moonOrbit() {
 
 }
 
-function submitAnswer() {
-	var answer = true;
-	if(answer) {
-		controls.movementSpeed = 0.33 * d;
-		console.log("Correct! you can move again 	" + (controls.movementSpeed = 0.33 * d));
-	} else {
-		console.log("wrong answer");
-	}
-}
-
 function updateFuel() {
 	fuel -= 0.01;
 	// console.log("Updating fuel to " + fuel);
 	document.getElementsByClassName("fuel")[0].style.height = fuel + "%";
+	document.getElementsByClassName("fuel-value")[0].innerHTML = Math.floor(fuel);
 }
 
 function animate() {
 
 	updateHud();
-	slowNearPlanets();
+
+	if(shipEnabled)
+		slowNearPlanets();
+
 	moonOrbit();
 	updateFuel();
 

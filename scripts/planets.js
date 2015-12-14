@@ -34,7 +34,7 @@ function Planet(mesh, radius, speed, distance, atmColor, glowColor) {
 	if(mesh.material.map.sourceFile != "images/planets/moonmap1k.jpg")
 	{
 		var rotPathG = new THREE.CylinderGeometry( distance * au * dFactor, distance * au * dFactor, 0.1, 256, 1, true, 0, 6.2 );
-		var rotPathM = new THREE.MeshPhongMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+		var rotPathM = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
 		var rotPath = new THREE.Mesh( rotPathG, rotPathM );
 		rotPath.rotation.set(0, Math.PI / 2 + 0.04, 0);
 		scene.add( rotPath );
@@ -221,8 +221,7 @@ function slowNearPlanets() {
 		controls.movementSpeed = 0.33 * d;
 	} else {
 		controls.movementSpeed = 0;
-		document.getElementById("trivia-title").innerHTML = "Welcome to " + planetName + "!";
-		document.getElementsByClassName("trivia")[0].style.marginTop = "-12em";
+		showTriviaQuestion();
 	}
 
 	controls.update( delta );

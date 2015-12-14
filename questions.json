@@ -1,0 +1,34 @@
+{
+    "questions": [
+        {
+            "q": "How many pints are in a gallon?",
+            "choices": {
+                "a": "10",
+                "b": "9",
+                "c": "8",
+                "d": "7"
+            },
+            "answer": "c"
+        },
+        {
+            "q": "How many inches are in a foot?",
+            "choices": {
+                "a": "36",
+                "b": "12",
+                "c": "9",
+                "d": "6"
+            },
+            "answer": "b"
+        },
+        {
+            "q": "How many inches are in a inch?",
+            "choices": {
+                "a": "1",
+                "b": "2",
+                "c": "3",
+                "d": "4"
+            },
+            "answer": "a"
+        }
+    ]
+}
