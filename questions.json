@@ -45,8 +45,8 @@
             "choices": {
                 "a": "The tilt of the earth's rotation relative to the ecliptic as earth revolves around the sun",
                 "b": "The varying amount of sunspot activity",
-                "c": "The earth's orbit around the sun as an exlipse rather than a circle",
-                "d": "The rotation of during a 24-hour day"
+                "c": "The earth's orbit around the sun as an ellipse rather than a circle",
+                "d": "The rotation during a 24-hour day"
             },
             "answer": "a"
         },
