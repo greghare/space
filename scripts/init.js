@@ -119,7 +119,7 @@ function init() {
 
 	loadSounds();
 
-	var questions = loadQuestions("../questions.json", function() {
+	var questions = loadQuestions("questions.json", function() {
 		console.log(this);
 		qdb = this;
 	});
