@@ -119,7 +119,7 @@ function init() {
 
 	loadSounds();
 
-	var questions = loadQuestions("space/questions.json", function() {
+	var questions = loadQuestions("https://miimario.github.io/space/questions.json", function() {
 		console.log(this);
 		qdb = this;
 	});
