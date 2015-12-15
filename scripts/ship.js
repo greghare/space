@@ -30,25 +30,33 @@ function Ship() {
 
 function startFlyingAgain() {
 
-    moveShipBack();
+    console.log("startFlyingAgain()");
+    moveShipForward();
 	shipEnabled = true;
-	document.getElementsByClassName("trivia")[0].style.marginTop = "20em";
-	console.log("Correct! you can move again " + (controls.movementSpeed = 0.33 * d));
+	document.getElementsByClassName("trivia")[0].style.marginTop = "30em";
 
 }
 
 // Move the ship away from the planet
-function moveShipBack() {
+function moveShipForward() {
+
+    var away;
+
+    if(planet == 1) {
+        away = 10;
+    } else if(planet == 3) {
+        away = 30;
+    } else {
+        away = 25;
+    }
 
 	var position = camera.position;
 	var planetTween = new TWEEN.Tween(position)
 		.to({
-			x: camera.position.x - 25,
-			z: camera.position.z
-		}, 500)
+			x: camera.position.x - away,
+		}, 2000)
 		.onUpdate(function() {
 			camera.position.x = position.x;
-			camera.position.z = position.z;
 		})
 		.start();
 

@@ -23,6 +23,10 @@
 </head>
 
 <body>
+	<div class="pause">
+		<h3>Press P for PAUSE/HELP</h3>
+	</div>
+
 	<div class="fuel-guage">
 		<h3>Fuel</h3>
 		<div class="fuel-bar">
@@ -51,13 +55,45 @@
 
 	<div class="trivia">
 		<h3 id="trivia-title">Welcome</h3>
-		<h2>1/5</h2>
+		<h2 id="questionOn">1/2</h2>
 		<p id="trivia-question">Question Here</p>
 		<ul>
-			<li id="ans-a"><span>A:</span> Choice</li>
-			<li id="ans-b"><span>B:</span> Choice</li>
-			<li id="ans-c"><span>C:</span> Choice</li>
-			<li id="ans-d"><span>D:</span> Choice</li>
+			<li id="ans-a"><span>A:</span> <span>Choice</span></li>
+			<li id="ans-b"><span>B:</span> <span>Choice</span></li>
+			<li id="ans-c"><span>C:</span> <span>Choice</span></li>
+			<li id="ans-d"><span>D:</span> <span>Choice</span></li>
+		</ul>
+	</div>
+
+	<div class="welcome">
+		<div class="welcome-content">
+			<h1 id="welcome-title">S P A C E</h1>
+			<p>A Space flight trivia game </p>
+			<div class="box">
+				<h4>HOW TO PLAY</h4>
+				<p>Answer trivia questions at each planet. <br />If you're correct your fuel goes up 5%. <br />If you're incorrect you lose 10%. <br />Fuel runs out when you're not answering questions.</p>
+				<h4>CONTROLS</h4>
+				<p>W: Fly forwards | S: Fly backwards</p>
+				<p>A: Move left | D: Move right</p>
+				<p>Up: Pitch + | Down: Pitch -</p>
+				<p>Left: Yaw left | Right: Yaw right</p>
+				<p>Q: Roll left | E: Roll right</p>
+				<p>R: Up | F: Down</p>
+				<p>P: Play/Pause</p>
+			</div>
+		</div>
+	</div>
+	<div class="gameOver">
+		<div class="gameOver-content">
+			<h1 id="gameOver-title">GAME OVER</h1>
+			<p>Press F5 to try again</p>
+		</div>
+	</div>
+	<div class="youWin">
+		<div class="youWin-content">
+			<h1 id="youWin-title">YOU WON!</h1>
+			<p>Press F5 to play again</p>
+		</div>
 	</div>
 </body>
 

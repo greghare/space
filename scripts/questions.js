@@ -1,6 +1,7 @@
 // var questions; // Array of the question database
 var question;               // current question
-var questionsAnswered = 0;  // how many questions have been answered at that round
+var questionsAnswered = 1;  // how many questions have been answered at that round
+var totalQuestionsAns = 0;
 
 function loadQuestions(file, callback) {
 
@@ -22,49 +23,91 @@ function getRandomQuestion(db) {
 
     // Pick random question index
     var qi = Math.floor(Math.random() * db.questions.length);
-    return db.questions[qi];
+
+    // Get the question from the database
+    var question = db.questions[qi];
+
+    // Delete that question from the choices
+    db.questions.splice(qi, 1);
+
+    return question;
 
 }
 
 function showTriviaQuestion() {
-    debugger;
+
     question = getRandomQuestion(qdb);
     console.log(question.q);
-    document.getElementById("trivia-title").innerHTML = "Welcome to " + planetName + "!";
+    document.getElementById("questionOn").innerHTML = questionsAnswered + "/2";
+    document.getElementById("trivia-title").innerHTML = "Welcome to " + planetName;
     document.getElementById("trivia-question").innerHTML = question.q;
     document.getElementById("ans-a").innerHTML = question.choices.a;
     document.getElementById("ans-b").innerHTML = question.choices.b;
     document.getElementById("ans-c").innerHTML = question.choices.c;
     document.getElementById("ans-d").innerHTML = question.choices.d;
-    document.getElementsByClassName("trivia")[0].style.marginTop = "-12em";
+    document.getElementsByClassName("trivia")[0].style.marginTop = "-15em";
 
+}
+
+function correctAns() {
+
+    bell.play();
+
+	var inc = 5;
+
+    fuel = (fuel + inc) > 100 ? fuel = 100 : fuel += inc;
+
+    document.getElementsByClassName("fuel")[0].style.height = fuel + "%";
+    document.getElementsByClassName("fuel")[0].style.backgroundColor = "green";
+    setTimeout(function() {
+        document.getElementsByClassName("fuel")[0].style.backgroundColor = "#FFEA00";
+    }, 1000);
+	document.getElementsByClassName("fuel-value")[0].innerHTML = Math.floor(fuel);
+}
+
+function wrongAns() {
+
+    error.play();
+
+    var dec = 10;
+
+    fuel = (fuel - dec) < 0 ? fuel = 0 : fuel -= dec;
+
+    document.getElementsByClassName("fuel")[0].style.height = fuel + "%";
+    document.getElementsByClassName("fuel")[0].style.backgroundColor = "red";
+    setTimeout(function() {
+        document.getElementsByClassName("fuel")[0].style.backgroundColor = "#FFEA00";
+    }, 1000);
+	document.getElementsByClassName("fuel-value")[0].innerHTML = Math.floor(fuel);
 }
 
 function submitAnswer(ans) {
 
-    debugger;
+    totalQuestionsAns++;
 
-	var unit = 10;
-
+    // Check if answer is correct
 	if(ans == question.answer) {
-		fuel = (fuel + unit) > 100 ? fuel = 100 : fuel += unit;
-		console.log("correct answer");
+		correctAns();
 	} else {
-		fuel -= unit;
-		console.log("wrong answer");
+		wrongAns();
 	}
 
-	questionsAnswered++;
-
-    console.log("questionsAnswered" + questionsAnswered);
-
-	if(questionsAnswered < 2) {
-        console.log("Showing another question");
-    	showTriviaQuestion();
-	} else {
-        console.log("Starting to fly...");
-		startFlyingAgain();
-		questionsAnswered = 0;
-	}
+    // BUG IS SOMEWHERE IN HERE I THINK
+    if(questionsAnswered == 2)
+    {
+        if(totalQuestionsAns == 20) {
+            gameWon();
+        } else {
+            startFlyingAgain();
+            questionsAnswered = 1;
+            visited[planet] = 1;
+            controlsEnabled = true;
+            usingFuel = true;
+            spaceshipAmbient.pause().fadeIn(0.5, 2000);
+        }
+    } else {
+        questionsAnswered++;
+        showTriviaQuestion();
+    }
 
 }

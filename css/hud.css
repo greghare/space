@@ -34,6 +34,15 @@
     margin: 0;
 }
 
+.pause {
+    transform: translate(0px, 0px) rotate(0deg) skew(0deg, 4deg) scale(1, 1);
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    padding: 20px;
+    width: 150px;
+}
+
 .fuel-guage {
     transform: translate(0px, 0px) rotate(0deg) skew(0deg, -4deg) scale(1, 1);
     position: absolute;
@@ -54,4 +63,5 @@
   background-color: #FFEA00;
   position: absolute;
   bottom: 0;
+  transition: all ease-in-out 200ms;
 }

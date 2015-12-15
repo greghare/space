@@ -3,10 +3,10 @@
         {
             "q": "How many pints are in a gallon?",
             "choices": {
-                "a": "10",
+                "a": "7",
                 "b": "9",
                 "c": "8",
-                "d": "7"
+                "d": "10"
             },
             "answer": "c"
         },
@@ -21,14 +21,284 @@
             "answer": "b"
         },
         {
-            "q": "How many inches are in a inch?",
+            "q": "When a gas is turned into a liquid, the process is called",
             "choices": {
-                "a": "1",
-                "b": "2",
-                "c": "3",
-                "d": "4"
+                "a": "Condensation",
+                "b": "Evaporation",
+                "c": "Deposition",
+                "d": "Sublimation"
             },
             "answer": "a"
+        },
+        {
+            "q": "Which of the following parts of the sun is easily visible only during a total solar eclipse?",
+            "choices": {
+                "a": "Core",
+                "b": "Photosphere",
+                "c": "Sunspots",
+                "d": "Corona"
+            },
+            "answer": "d"
+        },
+        {
+            "q": "Earth's seasons are caused by which of the following?",
+            "choices": {
+                "a": "The tilt of the earth's rotation relative to the ecliptic as earth revolves around the sun",
+                "b": "The varying amount of sunspot activity",
+                "c": "The earth's orbit around the sun as an exlipse rather than a circle",
+                "d": "The rotation of during a 24-hour day"
+            },
+            "answer": "a"
+        },
+        {
+            "q": "The accumulation of stress along the boundaries of lithospheric plates results in which of the following?",
+            "choices": {
+                "a": "Earthquakes",
+                "b": "Magnetic reversals",
+                "c": "Hurricanes",
+                "d": "Increased deposition of deep-sea sediments"
+            },
+            "answer": "a"
+        },
+        {
+            "q": "Which of the following elements is a metal",
+            "choices": {
+                "a": "S",
+                "b": "Se",
+                "c": "I",
+                "d": "Ga"
+            },
+            "answer": "d"
+        },
+        {
+            "q": "Which of the following items will be attracted to the north pole of a permanent magnet by a magnet force?",
+            "choices": {
+                "a": "The north pole of another permanent magnet",
+                "b": "A piece of iron that is not a permanent magnet",
+                "c": "A positively charged glass rod",
+                "d": "A negatively charged rubber rod"
+            },
+            "answer": "b"
+        },
+        {
+            "q": "Pollination by birds is called",
+            "choices": {
+                "a": "Autogamy",
+                "b": "Ornithophily",
+                "c": "Entomophily",
+                "d": "Anemophily"
+            },
+            "answer": "b"
+        },
+        {
+            "q": "The fastest-running terrestrial animal is",
+            "choices": {
+                "a": "Cheetah",
+                "b": "Lion",
+                "c": "Man",
+                "d": "Jaguar"
+            },
+            "answer": "a"
+        },
+        {
+            "q": "As you go down into a well, your weight",
+            "choices": {
+                "a": "Increases slightly",
+                "b": "Decreases slightly",
+                "c": "Remains exactly the same",
+                "d": "None of the above"
+            },
+            "answer": "b"
+        },
+        {
+            "q": "Which prefix is often used with scientific terms to indicate that something is the same, equal or constant?",
+            "choices": {
+                "a": "iso",
+                "b": "mega",
+                "c": "meta",
+                "d": "quasi"
+            },
+            "answer": "a"
+        },
+        {
+            "q": "The study of phenomena at very low temperatures is called",
+            "choices": {
+                "a": "Heat transfer",
+                "b": "Morphology",
+                "c": "Crystallography",
+                "d": "Cryogenics"
+            },
+            "answer": "d"
+        },
+        {
+            "q": "The branch of medical science which is concerned with the study of disease as it affects a community of people is called",
+            "choices": {
+                "a": "Epidemiology",
+                "b": "Encology",
+                "c": "Paleontogy",
+                "d": "Pathology"
+            },
+            "answer": "a"
+        },
+        {
+            "q": "Superconductivity is a material property associated with",
+            "choices": {
+                "a": "Cooling a substance without a phase change",
+                "b": "Frictionless liquid flow",
+                "c": "A loss of thermal resistance",
+                "d": "A loss of electrical resistance"
+            },
+            "answer": "d"
+        },
+        {
+            "q": "If a metal can be drawn into wires relatively easily it is called",
+            "choices": {
+                "a": "Malleable",
+                "b": "Ductile",
+                "c": "Extractive",
+                "d": "Tactile"
+            },
+            "answer": "d"
+        },
+        {
+            "q": "Cystitis is the infection of which of the following?",
+            "choices": {
+                "a": "Liver",
+                "b": "Urinary bladder",
+                "c": "Pancreas",
+                "d": "Lung"
+            },
+            "answer": "b"
+        },
+        {
+            "q": "Which of the following is primarily composed of calcium carbonate?",
+            "choices": {
+                "a": "Fish scales",
+                "b": "Shark teeth",
+                "c": "Oyster Shells",
+                "d": "Whale bones"
+            },
+            "answer": "c"
+        },
+        {
+            "q": "Who discovered Penicillin?",
+            "choices": {
+                "a": "Watson and Crick",
+                "b": "Sir Alexander Fleming",
+                "c": "Robert Koch",
+                "d": "Louis Pasteur"
+            },
+            "answer": "b"
+        },
+        {
+            "q": "The three methods of science are observation, experimentation and",
+            "choices": {
+                "a": "Inference",
+                "b": "Deduction",
+                "c": "Measurement",
+                "d": "Hypothesis"
+            },
+            "answer": "c"
+        },
+        {
+            "q": "Enzymes and anti-bodies are mainly made of",
+            "choices": {
+                "a": "Proteins",
+                "b": "Carbohydrates",
+                "c": "Fats",
+                "d": "Vitamins"
+            },
+            "answer": "a"
+        },
+        {
+            "q": "What is the total number of bones in the human body?",
+            "choices": {
+                "a": "32",
+                "b": "196",
+                "c": "206",
+                "d": "512"
+            },
+            "answer": "c"
+        },
+        {
+            "q": "Who discovered the circulation of blood?",
+            "choices": {
+                "a": "Louis Pasteur",
+                "b": "Edward Jenner",
+                "c": "Hargobind Khorana",
+                "d": "William Harvey"
+            },
+            "answer": "d"
+        },
+        {
+            "q": "The animal kingdom is formally classified into major groups known as",
+            "choices": {
+                "a": "Families",
+                "b": "Orders",
+                "c": "Phyla",
+                "d": "Sub Phyla"
+            },
+            "answer": "c"
+        },
+        {
+            "q": "Nitrogen constitutes nearly __ % of the atmosphere",
+            "choices": {
+                "a": "42",
+                "b": "57",
+                "c": "79",
+                "d": "21"
+            },
+            "answer": "c"
+        },
+        {
+            "q": "Which of the following is NOT a noble gas?",
+            "choices": {
+                "a": "Krypton",
+                "b": "Argon",
+                "c": "Hydrogen",
+                "d": "Helium"
+            },
+            "answer": "c"
+        },
+        {
+            "q": "A hygroscopic substance is one which",
+            "choices": {
+                "a": "Absorbs water",
+                "b": "Releases water",
+                "c": "Absorbs air",
+                "d": "Releases air"
+            },
+            "answer": "a"
+        },
+        {
+            "q": "The lower, dense region of the atmosphere is known as",
+            "choices": {
+                "a": "Stratosphere",
+                "b": "Troposphere",
+                "c": "Hydrosphere",
+                "d": "Ionosphere"
+            },
+            "answer": "b"
+        },
+        {
+            "q": "What does this statement define: The rate of change of position in a fixed direction",
+            "choices": {
+                "a": "Speed",
+                "b": "Acceleration",
+                "c": "Momentum",
+                "d": "Velocity"
+            },
+            "answer": "d"
+        },
+        {
+            "q": "How much heat is required to raise the temperature of 1g of water by 1 degree Celsius",
+            "choices": {
+                "a": "100 Joules",
+                "b": "1 Calorie",
+                "c": "1 Joule",
+                "d": "100 Calories"
+            },
+            "answer": "b"
         }
     ]
 }

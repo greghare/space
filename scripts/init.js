@@ -4,16 +4,24 @@ var renderer;
 var controls;
 var updateFcts = [];
 
+var gameIsOver = false;
+var gameIsPaused = true;
+var gameIsWon = false;
+
+var freeFlight = false;
+
 var qdb;
 
-// var dFactor = 0.000002; // distance factor (lower = less distance)
-// var au = 92955807;	   	// distance from earth to sun in miles (used for scale)
+var dFactor = 0.000002; // distance factor (lower = less distance)
+var au = 92955807;	   	// distance from earth to sun in miles (used for scale)
 
 var clock = new THREE.Clock();
 
 var ship = new Ship();
 var fuel = 100;
-var shipEnabled = true;
+var shipEnabled = false;
+var controlsEnabled = false;
+var usingFuel = false;
 
 var originalX, originalZ;
 
@@ -34,6 +42,8 @@ var	dSunVec = new THREE.Vector3(),
 	dUranusVec = new THREE.Vector3(),
 	dNeptuneVec = new THREE.Vector3(),
 	dPlutoVec = new THREE.Vector3();
+
+var visited = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 function init() {
 	// Create the THREE.js scene
@@ -113,7 +123,7 @@ function init() {
 		console.log(this);
 		qdb = this;
 	});
-	console.log("Running before the callback");
+
 	bindKeys();
 
 	document.getElementById("ans-a").addEventListener("click", function() { submitAnswer("a"); }, false);
@@ -127,12 +137,36 @@ function init() {
 function bindKeys() {
 
 	Mousetrap.bind('space', function() {
-		if(ship.engineOn === false)
-			ship.startEngine();
-		else if(ship.engineOn === true)
-			ship.stopEngine();
+		if(gameIsWon === true) {
+			freeFlight = true;
+			usingFuel = true;
+			fuel = 100;
+			updateFuel();
 
-		speed = 1;
+			shipEnabled = true;
+			controlsEnabled = true;
+			spaceshipAmbient.play().fadeIn(0.5, 2000);
+
+			var youWonBox = document.getElementsByClassName("youWon")[0];
+			youWonBox.style.opacity = "0.0";
+			setTimeout ( function() {
+				youWonBox.style.display = "none";
+			}, 500 );
+		}
+	});
+
+	// Pause game
+	Mousetrap.bind('p', function() {
+		if(gameIsPaused) {
+			startGame();
+		} else {
+			pauseGame();
+		}
+	});
+
+	// Demo Speed
+	Mousetrap.bind('b', function() {
+		fSpeedFactor = 0.88;
 	});
 }
 
@@ -178,24 +212,86 @@ function moonOrbit() {
 
 }
 
-function updateFuel() {
-	fuel -= 0.01;
-	// console.log("Updating fuel to " + fuel);
-	document.getElementsByClassName("fuel")[0].style.height = fuel + "%";
-	document.getElementsByClassName("fuel-value")[0].innerHTML = Math.floor(fuel);
+function startGame() {
+
+	popup.play();
+
+	var welcomeBox = document.getElementsByClassName("welcome")[0];
+	welcomeBox.style.opacity = "0.0";
+	setTimeout ( function() {
+		welcomeBox.style.display = "none";
+	}, 500 );
+
+	gameIsPaused = false;
+	shipEnabled = true;
+	controlsEnabled = true;
+
+	if(!freeFlight)
+		usingFuel = true;
+
+	music.play();
+	spaceshipAmbient.play().fadeIn(0.5, 2000);
+}
+
+function pauseGame() {
+
+	popup.play();
+
+	var welcomeBox = document.getElementsByClassName("welcome")[0];
+	welcomeBox.style.display = "block";
+	setTimeout ( function() {
+		welcomeBox.style.opacity = "1.0";
+	}, 200 );
+
+	gameIsPaused = true;
+	shipEnabled = false;
+	controlsEnabled = false;
+	usingFuel = false;
+	music.pause();
+	spaceshipAmbient.fadeOut(0, 2000);
+}
+
+function gameOver() {
+
+	var gameOverBox = document.getElementsByClassName("gameOver")[0];
+	gameOverBox.style.display = "block";
+
+	setTimeout ( function() {
+		gameOverBox.style.opacity = "1.0";
+	}, 100 );
+
+	gameIsOver = true;
+	music.stop();
+}
+
+function gameWon() {
+	var youWinBox = document.getElementsByClassName("youWin")[0];
+	youWinBox.style.display = "block";
+
+	setTimeout ( function() {
+		youWinBox.style.opacity = "1.0";
+	}, 100 );
+
+	gameIsWon = true;
+	gameIsOver = true;
 }
 
 function animate() {
 
-	updateHud();
+	if(!gameIsOver && !gameIsPaused) {
 
-	if(shipEnabled)
-		slowNearPlanets();
+		updateHud();
 
-	moonOrbit();
-	updateFuel();
+		if(controlsEnabled)
+			slowNearPlanets();
 
-	TWEEN.update();
+		moonOrbit();
+
+		if(usingFuel)
+			updateFuel();
+
+		TWEEN.update();
+	}
 }
 
 function render() {

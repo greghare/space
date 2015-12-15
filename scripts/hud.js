@@ -5,3 +5,13 @@ function updateHud() {
 	document.getElementById("level").innerHTML = Math.floor(camera.rotation.z);
 	document.getElementById("distance").innerHTML = Math.floor(d);
 }
+
+function updateFuel() {
+	fuel -= 0.01;
+	document.getElementsByClassName("fuel")[0].style.height = fuel + "%";
+	document.getElementsByClassName("fuel-value")[0].innerHTML = Math.floor(fuel);
+
+	if(fuel < 1) {
+		gameOver();
+	}
+}

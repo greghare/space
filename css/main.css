@@ -16,8 +16,8 @@ canvas {
     top: 50%;
 	left: 50%;
 	width: 30em;
-	height: 19em;
-	margin-top: 20em;
+	/*height: 19em;*/
+	margin-top: 30em;
 	margin-left: -15em;
     padding: 20px;
 	background-color: #000;
@@ -61,11 +61,133 @@ canvas {
 	cursor: pointer;
 }
 
-.trivia ul li span {
+.trivia ul li span:first-of-type {
 	float: left;
 }
 
 .trivia ul li a {
 	color: #000;
 	text-decoration: none;
+}
+
+/* .welcome {
+    top: 25%;
+	left: 50%;
+	width: 30em;
+	margin-top: 30em;
+	margin-left: -15em;
+    padding: 40px;
+	background-color: #000;
+	background-color: rgba(255, 234, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+	position: fixed;
+	color: #000;
+	border-radius: 5px;
+	transition: margin ease-in-out 700ms;
+} */
+
+.gameOver {
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+	background-color: rgba(241, 0, 0, 0.9);
+	position: fixed;
+	color: #FFF;
+	transition: all ease-in-out 0.5s;
+	opacity: 0.0;
+	display: none;
+}
+
+.gameOver .gameOver-content {
+	position: absolute;
+	left: 50vw;
+	top: 50vh;
+}
+
+.gameOver h1 {
+	width: 200px;
+	margin: 0 0 0 -100px;
+}
+
+.gameOver p {
+	width: 300px;
+	margin: 0 0 0 -150px;
+}
+
+.youWin {
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+	background-color: rgba(0, 241, 30, 0.9);
+	position: fixed;
+	color: #FFF;
+	transition: all ease-in-out 0.5s;
+	opacity: 0.0;
+	display: none;
+}
+
+.youWin .youWin-content {
+	position: absolute;
+	left: 50vw;
+	top: 50vh;
+}
+
+.youWin h1 {
+	width: 200px;
+	margin: 0 0 0 -100px;
+}
+
+.youWin p {
+	width: 300px;
+	margin: 0 0 0 -150px;
+}
+
+
+.welcome {
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+	background-color: rgba(241, 178, 0, 0.9);
+	position: fixed;
+	color: #FFF;
+	transition: all ease-in-out 0.5s;
+}
+
+.welcome .welcome-content {
+	position: absolute;
+	left: 50vw;
+	top: 15vh;
+}
+
+.welcome h1 {
+	width: 200px;
+	margin: 0 0 0 -100px;
+}
+
+.welcome p {
+	width: 300px;
+	margin: 0 0 0 -150px;
+}
+
+.welcome .box {
+	margin-top: 20px;
+	background-color: rgba(255, 255, 255, 0.2);
+	padding: 30px 0 30px 0;
+	width: 600px;
+	margin-left: -300px;
+}
+
+.welcome .box p {
+	margin: 0;
+	text-align: center;
+	width: 100%;
+}
+
+.welcome a {
+	position: absolute;
+	left: 50vw;
+	top: 50vh;
+	padding: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 3px;
 }

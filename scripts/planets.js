@@ -2,7 +2,9 @@ var sFactor = 0.0001;   // speed factor    (lower = faster rotation)
 var rFactor = 0.0001; 	// radius factor   (lower = smaller size)
 var dFactor = 0.000002; // distance factor (lower = less distance)
 var au = 92955807;	   	// distance from earth to sun in miles (used for scale)
+var planet = 9;
 var planetName = "";
+var fSpeedFactor = 0.33;
 
 // Adds a starfield earth to the scene
 function addStarfield() {
@@ -119,8 +121,8 @@ function slowNearPlanets() {
 	dEarthVec.subVectors( camera.position, earth.getMesh().position );
 	dEarth = dEarthVec.length();
 
-	dMoonVec.subVectors( camera.position, moon.getMesh().position );
-	dMoon = dMoonVec.length();
+	// dMoonVec.subVectors( camera.position, moon.getMesh().position );
+	// dMoon = dMoonVec.length();
 
 	dMarsVec.subVectors( camera.position, mars.getMesh().position );
 	dMars = dMarsVec.length();
@@ -140,13 +142,15 @@ function slowNearPlanets() {
 	dPlutoVec.subVectors( camera.position, pluto.getMesh().position );
 	dPluto = dPlutoVec.length();
 
-	var minDist = Math.min(dSun, dMercury, dVenus, dEarth, dMoon, dMars, dJupiter, dSaturn, dUranus, dNeptune, dPluto);
+	var minDist = Math.min(dSun, dMercury, dVenus, dEarth, dMars, dJupiter, dSaturn, dUranus, dNeptune, dPluto);
 
 	if( dSun == minDist && dSun <= dPlanet )
 	{
 		// console.log("dSun < dPlanet");
 		d = ( dSun - sun.getScale() * 1.01 );
 		shipEnabled = (d / sun.getRadius() <= 0.00004) ? false : true;
+
+		planet = 0;
 		planetName = "the Sun";
 	}
 	else if( dMercury == minDist && dMercury <= dPlanet )
@@ -154,6 +158,8 @@ function slowNearPlanets() {
 		// console.log("dMercury < dPlanet");
 		d = ( dMercury - mercury.getScale() * 1.01 );
 		shipEnabled = (d / mercury.getRadius() <= 0.00004) ? false : true;
+
+		planet = 1;
 		planetName = "Mercury";
 	}
 	else if( dVenus == minDist && dVenus <= dPlanet )
@@ -161,6 +167,8 @@ function slowNearPlanets() {
 		// console.log("dVenus < dPlanet");
 		d = ( dVenus - venus.getScale() * 1.01 );
 		shipEnabled = (d / venus.getRadius() <= 0.00004) ? false : true;
+
+		planet = 2;
 		planetName = "Venus";
 	}
 	else if( dEarth == minDist && dEarth <= dPlanet )
@@ -168,63 +176,78 @@ function slowNearPlanets() {
 		// console.log("dEarth < dPlanet");
 		d = ( dEarth - earth.getScale() * 1.01 );
 		shipEnabled = (d / earth.getRadius() <= 0.00004) ? false : true;
+
+		planet = 3;
 		planetName = "Earth";
-	}
-	else if( dMoon == minDist && dMoon <= dPlanet )
-	{
-		// console.log("dMoon < dPlanet");
-		d = ( dMoon - moon.getScale() * 1.01 );
-		shipEnabled = (d / moon.getRadius() <= 0.00004) ? false : true;
-		planetName = "the Moon";
 	}
 	else if( dMars == minDist && dMars <= dPlanet )
 	{
 		d = ( dMars - mars.getScale() * 1.01 );
 		shipEnabled = (d / mars.getRadius() <= 0.00004) ? false : true;
+
+		planet = 4;
 		planetName = "Mars";
 	}
 	else if( dJupiter == minDist && dJupiter <= dPlanet )
 	{
 		d = ( dJupiter - jupiter.getScale() * 1.01 );
 		shipEnabled = (d / jupiter.getRadius() <= 0.00004) ? false : true;
+
+		planet = 5;
 		planetName = "Jupiter";
 	}
 	else if( dSaturn == minDist && dSaturn <= dPlanet )
 	{
 		d = ( dSaturn - saturn.getScale() * 1.01 );
 		shipEnabled = (d / saturn.getRadius() <= 0.00004) ? false : true;
+
+		planet = 6;
 		planetName = "Saturn";
 	}
 	else if( dUranus == minDist && dUranus <= dPlanet )
 	{
 		d = ( dUranus - uranus.getScale() * 1.01 );
 		shipEnabled = (d / uranus.getRadius() <= 0.00004) ? false : true;
+
+		planet = 7;
 		planetName = "Uranus";
 	}
 	else if( dNeptune == minDist && dUranus <= dPlanet )
 	{
 		d = ( dNeptune - neptune.getScale() * 1.01 );
 		shipEnabled = (d / neptune.getRadius() <= 0.00004) ? false : true;
+
+		planet = 8;
 		planetName = "Neptune";
 	}
 	else if( dPluto == minDist && dPluto <= dPlanet )
 	{
 		d = ( dPluto - pluto.getScale() * 1.01 );
 		shipEnabled = (d / pluto.getRadius() <= 0.00004) ? false : true;
+
+		planet = 9;
 		planetName = "Pluto";
 	}
 
-	// console.log(d);
-
-	if(shipEnabled === true) {
-		document.getElementById("approaching").innerHTML = "Approaching " + planetName;
-		controls.movementSpeed = 0.33 * d;
-	} else {
-		controls.movementSpeed = 0;
+	if(shipEnabled === false && visited[planet] === 0)
+	{
+		controlsEnabled = false;
+		usingFuel = false;
+		spaceshipAmbient.fadeOut(0, 2000);
 		showTriviaQuestion();
+	} else {
+		document.getElementById("approaching").innerHTML = "Approaching " + planetName;
+		controls.movementSpeed = fSpeedFactor * d;
+		controls.update( delta );
 	}
 
-	controls.update( delta );
+	// if(shipEnabled === true) {
+	// 	controls.movementSpeed = 0.33 * d;
+	// } else if(shipEnabled === false && visited[planet] === 0) {
+	// 	controls.movementSpeed = 0;
+	// 	showTriviaQuestion();
+	// 	visited[planet] = 1;
+	// }
 }
 
 // Rotate a given planet at the specified speed (in milliseconds)
