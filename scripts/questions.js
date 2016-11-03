@@ -1,4 +1,4 @@
-// var questions; // Array of the question database
+var questions; // Array of the question database
 var question;               // current question
 var questionsAnswered = 1;  // how many questions have been answered at that round
 var totalQuestionsAns = 0;
@@ -10,8 +10,8 @@ function loadQuestions(file, callback) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             callback.call(JSON.parse(xmlhttp.responseText));
-            // questions = JSON.parse(xmlhttp.responseText);
-            // storeQuestions(questions);
+            questions = JSON.parse(xmlhttp.responseText);
+            //storeQuestions(questions);
         }
     };
     xmlhttp.open("GET", file, true);
@@ -36,7 +36,7 @@ function getRandomQuestion(db) {
 
 function showTriviaQuestion() {
 
-    question = getRandomQuestion(qdb);
+//    question = getRandomQuestion(qdb);
     console.log(question.q);
     document.getElementById("questionOn").innerHTML = questionsAnswered + "/2";
     document.getElementById("trivia-title").innerHTML = "Welcome to " + planetName;
