@@ -236,7 +236,7 @@ function slowNearPlanets() {
 		spaceshipAmbient.fadeOut(0, 2000);
 		showTriviaQuestion();
 	} else {
-		document.getElementById("approaching").innerHTML = "Approaching " + planetName;
+		document.getElementById("approaching").innerHTML = "Nearest Planet " + planetName;
 		controls.movementSpeed = fSpeedFactor * d;
 		controls.update( delta );
 	}
