@@ -36,7 +36,7 @@ function getRandomQuestion(db) {
 
 function showTriviaQuestion() {
 
-//    question = getRandomQuestion(qdb);
+    question = getRandomQuestion(qdb);
     console.log(question.q);
     document.getElementById("questionOn").innerHTML = questionsAnswered + "/2";
     document.getElementById("trivia-title").innerHTML = "Welcome to " + planetName;
