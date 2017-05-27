@@ -53,7 +53,7 @@ function correctAns() {
 
     bell.play();
 
-	var inc = 5;
+	var inc = 10;
 
     fuel = (fuel + inc) > 100 ? fuel = 100 : fuel += inc;
 
@@ -69,7 +69,7 @@ function wrongAns() {
 
     error.play();
 
-    var dec = 10;
+    var dec = 5;
 
     fuel = (fuel - dec) < 0 ? fuel = 0 : fuel -= dec;
 
